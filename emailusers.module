@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Presents selectable list of users. Select users. Proceed to initiate an email.
+ */
+
+
+/**
+ * Implements hook_menu().
+ */
+function emailusers_menu()
+{
+    $items = array();
+    $items['email_users'] = array(
+        'title' => 'Email Users',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('_emailusers_form'),
+        'access arguments' => array('send email to users'),
+        'file' => 'emailusers.form.inc'
+    );
+    $items['admin/config/system/emailusers'] = array(
+        'title' => 'Administer Email Users Module',
+        'description' => 'Configure settings for Email Users.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('emailusers_settings_form'),
+        'access arguments' => array('administer emailusers'),
+        'file' => 'emailusers.admin.inc',
+    );
+
+    return $items;
+}
+
+
+/**
+ * Implements hook_permission().
+ */
+function emailusers_permission()
+{
+    $permissions = array();
+
+    $permissions['send email to users'] = array(
+        'title' => t('send email to users'),
+        'description' => t('This user role can start an email to selected users'),
+    );
+    $permissions['administer email users'] = array(
+        'title' => t('Administer this module'),
+        'description' => t('This user role can control settings for this module'),
+    );
+
+    return $permissions;
+}
+
+
+/**
+ * @param $vars
+ *
+ * Adds "email-user" class to the body tag. Helps isolate the body tag.
+ */
+function emailusers_preprocess_html(&$vars) {
+    $vars['classes_array'][] = 'email-user';
+}

@@ -1,0 +1,9 @@
+.email-user form#-emailusers-form > div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.email-user form#-emailusers-form  .form-type-checkbox {
+    width: 20%;
+}

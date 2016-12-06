@@ -1,0 +1,11 @@
+name = Email Users
+description = TODO: Description of module
+core = 7.x
+
+files[] = tests/emailusers.test
+configure = admin/config/system/emailusers
+
+stylesheets[all][] = emailusers.css
+
+dependencies[] = realname
+dependencies[] = simple_mail
