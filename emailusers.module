@@ -52,11 +52,3 @@ function emailusers_permission()
 }
 
 
-/**
- * @param $vars
- *
- * Adds "email-user" class to the body tag. Helps isolate the body tag.
- */
-function emailusers_preprocess_html(&$vars) {
-    $vars['classes_array'][] = 'email-user';
-}

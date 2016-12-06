@@ -5,8 +5,6 @@ function _emailusers_form($form, &$form_state)
 {
 
 
-
-
     $form = array();
 
     // find users
@@ -22,12 +20,31 @@ function _emailusers_form($form, &$form_state)
     });
 
     // helps me remember struct
-    // dpm($users[10]);
+    //dpm($users[10]);
 
+
+    $form['usergroup'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Users'),
+        '#collapsible' => FALSE,
+        '#collapsed' => FALSE,
+        '#attributes' => array(
+            'class' => array('user-field-set')
+        ),
+    );
+
+
+    // sort by name
+    usort($users, function($a, $b) {
+        if ($a->realname == $b->realname) {
+            return 0;
+        }
+        return $a->realname < $b->realname ? -1 : 1;
+    });
 
     // loop create
     foreach ($users as $u) {
-        $form[$u->uid] = array(
+        $form['usergroup'][$u->uid] = array(
             '#type' => 'checkbox',
             '#title' => t($u->realname),
         );
@@ -63,7 +80,7 @@ function _emailusers_submit_send($form, &$form_state)
         }
     }
 
-    dpm($form_state['values']);
+    // dpm($form_state['values']);
 
     // get basic properties
     $from = variable_get('site_mail', false);
@@ -71,14 +88,14 @@ function _emailusers_submit_send($form, &$form_state)
     $body = $form_state['values']['message']['value'];
 
     // process selected users
-    foreach(user_load_multiple($selected_user_uids) as $u) {
+    foreach (user_load_multiple($selected_user_uids) as $u) {
 
         $to = $u->mail;
-
         simple_mail_queue($from, $to, $subject, $body);
+        drupal_set_message(t("A message is scheduled to be sent !to ", array(
+            '!to'=>$to
+        )));
     }
-
-
 
 
 }

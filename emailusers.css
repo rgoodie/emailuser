@@ -1,9 +1,21 @@
-.email-user form#-emailusers-form > div {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+fieldset.user-field-set {
+    height: 250px;
+    overflow-y: scroll;
+
 }
 
-.email-user form#-emailusers-form  .form-type-checkbox {
-    width: 20%;
+
+
+fieldset.user-field-set .panel-body {
+    clear: both;
+    display: FLEX !important;
+    height: 300px;
+    align-content: baseline;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+
+fieldset.user-field-set .panel-body .form-type-checkbox {
+    width: 25%;
 }
