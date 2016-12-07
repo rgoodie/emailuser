@@ -3,7 +3,7 @@ description = TODO: Description of module
 core = 7.x
 
 files[] = tests/emailusers.test
-
+configure=email_users_config
 stylesheets[all][] = emailusers.css
 
 scripts[]=emailusers.js

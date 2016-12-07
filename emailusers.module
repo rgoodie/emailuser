@@ -22,13 +22,12 @@ function emailusers_menu()
     );
 
 
-    $items['admin/emailusersmodule'] = array(
-        'title' => 'Administer Email Users Module',
-        'description' => 'Configure settings for Email Users.',
+    $items['email_users_config'] = array(
+        'title' => 'Email Users Config',
         'page callback' => 'drupal_get_form',
         'page arguments' => array('emailusers_settings_form'),
-        'access arguments' => array('administer emailusers'),
-        'file' => 'emailusers.admin.inc',
+        'access arguments' => array('send email to users'),
+        'file' => 'emailusers.admin.inc'
     );
 
     return $items;
@@ -55,3 +54,6 @@ function emailusers_permission()
 }
 
 
+function emailusers_test() {
+    return 'test';
+}
