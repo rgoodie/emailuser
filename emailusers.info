@@ -7,5 +7,6 @@ configure = admin/config/system/emailusers
 
 stylesheets[all][] = emailusers.css
 
+scripts[]=emailusers.js
+
 dependencies[] = realname
-dependencies[] = simple_mail
