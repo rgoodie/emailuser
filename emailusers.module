@@ -12,6 +12,7 @@
 function emailusers_menu()
 {
     $items = array();
+
     $items['email_users'] = array(
         'title' => 'Email Users',
         'page callback' => 'drupal_get_form',
@@ -19,7 +20,9 @@ function emailusers_menu()
         'access arguments' => array('send email to users'),
         'file' => 'emailusers.form.inc'
     );
-    $items['admin/config/system/emailusers'] = array(
+
+
+    $items['admin/emailusersmodule'] = array(
         'title' => 'Administer Email Users Module',
         'description' => 'Configure settings for Email Users.',
         'page callback' => 'drupal_get_form',

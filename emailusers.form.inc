@@ -21,11 +21,42 @@ function _emailusers_form($form, &$form_state)
 
     // 'from name'
     $form['from'] = array(
-        '#markup'=>t('<p>From: @from_name < @from_email >', array('@from_name'=>$current_user->realname, '@from_email'=> $current_user->mail)),
-        '#attributers'=>array('class'=>array('emailuser_from'))
+        '#markup' => t('<p>From: @from_name < @from_email >', array('@from_name' => $current_user->realname, '@from_email' => $current_user->mail)),
+        '#attributers' => array('class' => array('emailuser_from'))
     );
 
-    // field set
+
+    // by role buttons
+    $form['button_fieldset'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Controls'),
+        '#collapsible' => FALSE,
+        '#collapsed' => FALSE,
+        '#attributes' => array(
+            'class' => array('user-select-by-role-field-set')
+        ),
+    );
+
+    // select all btn
+    $form['button_fieldset']['select_all'] = array(
+        '#type' => 'button',
+        '#value' => t('Select all'),
+        '#attributes' => array(
+            'id' => 'useremail_btn_selectall',
+        )
+    );
+
+    // select none
+    $form['button_fieldset']['select_none'] = array(
+        '#type' => 'button',
+        '#value' => t('Select none'),
+        '#attributes' => array(
+            'id' => 'useremail_btn_selectnone',
+        )
+    );
+
+
+    // user field set
     $form['usergroup'] = array(
         '#type' => 'fieldset',
         '#title' => t('Users'),
@@ -101,8 +132,8 @@ function _emailusers_submit_send($form, &$form_state)
     $subject = t(variable_get('emailusers_default_subj_line', 'Email from this site: ' . variable_get('site_name', '')));
     $body = $form_state['values']['message']['value'];
 
-    watchdog('emailusers', t("Beginning email from @from_name"), array('@from_name'=>$current_user->realname));
-    watchdog('emailusers', t("Message starts as: @msg"), array('@msg'=> substr($body, 0, 100)));
+    watchdog('emailusers', t("Beginning email from @from_name"), array('@from_name' => $current_user->realname));
+    watchdog('emailusers', t("Message starts as: @msg"), array('@msg' => substr($body, 0, 100)));
 
 
     // process selected users
@@ -123,7 +154,7 @@ function _emailusers_submit_send($form, &$form_state)
             drupal_set_message($msg);
             watchdog('emailuser', $msg);
         } else {
-            $msg = t("The message to @name may have failed", array("@name"=>$u->realname));
+            $msg = t("The message to @name may have failed", array("@name" => $u->realname));
             drupal_set_message($msg, 'warning');
             watchdog('emailuser', $msg);
         }
@@ -148,10 +179,10 @@ function _emailusers_filter_userroles($item)
     switch ($item) {
         case 'authenticated user':
             return FALSE;
-            break;
         case 'administrator':
             return FALSE;
-            break;
+        case 'anonymous user':
+            return FALSE;
         default:
             return TRUE;
     }
